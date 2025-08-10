@@ -1,0 +1,78 @@
+{% extends 'inventory/base.html' %}
+{% block title %}Analysis{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="mb-4"><i class="bi bi-graph-up"></i> Analysis</h1>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h3>Overall Statistics</h3>
+            <p>Total Sales: {{ total_sales }}</p>
+            <p>Total Invested: {{ total_invested }}</p>
+            <p>Profit: {{ profit }}</p>
+            <p>Total Admin Consumption: {{ total_admin_consumption }}</p>
+            <p>Total User Consumption: {{ total_user_consumption }}</p>
+            <p>Total Consumption: {{ total_consumption }}</p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h3>Product Analysis</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Total Sales</th>
+                        <th>Quantity Sold</th>
+                        <th>Remaining Quantity</th>
+                        <th>Profit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for analysis in product_analysis %}
+                    <tr>
+                        <td>{{ analysis.product.name }}</td>
+                        <td>{{ analysis.total_sales }}</td>
+                        <td>{{ analysis.quantity_sold }}</td>
+                        <td>{{ analysis.remaining_quantity }}</td>
+                        <td>{{ analysis.profit }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="5">No products found</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card mt-4">
+        <div class="card-header">
+            <h3>Sales Progress</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity Sold</th>
+                        <th>Amount</th>
+                        <th>Created At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sale in sales %}
+                    <tr>
+                        <td>{{ sale.product.name }}</td>
+                        <td>{{ sale.quantity_sold }}</td>
+                        <td>{{ sale.amount }}</td>
+                        <td>{{ sale.created_at }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="4">No sales found</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
